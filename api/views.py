@@ -19,8 +19,8 @@ from yolov5.utils.torch_utils import select_device, time_sync
 from yolov5.utils.plots import Annotator, colors
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort"""
-import cv2
-from PIL import Image as im
+
+
 def get_tokens_for_user(user):
   refresh = RefreshToken.for_user(user)
   return {
