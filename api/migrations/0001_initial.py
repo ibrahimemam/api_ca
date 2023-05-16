@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
             options={
-                'abstract': False,
+                'abstract': True,
             },
         ),
     ]
