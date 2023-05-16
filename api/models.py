@@ -93,6 +93,3 @@ class MyModel(models.Model):
 
 
       
-class Reservation(models.Model):
-    camira = models.ForeignKey(camira, related_name='reservation', on_delete=models.CASCADE )
-    movie = models.ForeignKey(User, related_name='reservation', on_delete=models.CASCADE )
