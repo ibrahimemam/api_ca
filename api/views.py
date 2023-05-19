@@ -45,7 +45,7 @@ class UserLoginView(APIView):
   renderer_classes = [UserRenderer]
   def post(self, request, format=None):
     serializer = UserLoginSerializer(data=request.data)
-
+    self.http_method_names.append("GET")
     if serializer.is_valid(raise_exception=True):
       email = serializer.data.get('email')
       password = serializer.data.get('password')
