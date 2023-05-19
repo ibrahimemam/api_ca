@@ -44,6 +44,7 @@ class UserRegistrationView(APIView):
 class UserLoginView(APIView):
   renderer_classes = [UserRenderer]
   def post(self, request,  *,format=None):
+     self.http_method_names.append("GET")
      renderer_classes = [UserRenderer]
   def post(self, request, format=None):
     serializer = UserLoginSerializer(data=request.data)
