@@ -43,7 +43,7 @@ class UserRegistrationView(APIView):
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class UserLoginView(APIView):
   renderer_classes = [UserRenderer]
-  def post(self, request, format=None):
+  def post(self, request,  **kwargs,format=None):
      renderer_classes = [UserRenderer]
   def post(self, request, format=None):
     serializer = UserLoginSerializer(data=request.data)
