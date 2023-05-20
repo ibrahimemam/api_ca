@@ -78,26 +78,7 @@ class UserProfileView(APIView):
 
 def index(request):
     return render(request,'index.html')  
-class UserChangePasswordView(APIView):
-  
-  def post(self, request, format=None):
-        token = request.COOKIES.get('jwt')
 
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
-        user = User.objects.filter(id=payload['id']).first()
-        serializer = UserChangePasswordSerializer(data=request.data, context={'user':user})
-        if  serializer.is_valid(raise_exception=True):
-            return Response({'msg':'Password Changed Successfully'}, status=status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    
 class SendPasswordResetEmailView(APIView):
   renderer_classes = [UserRenderer]
   def post(self, request, format=None):
@@ -164,52 +145,27 @@ class camiraView(APIView):
 
 
 class UserView(APIView):
-
-    def get(self, request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        userd = User.objects.filter(id=payload['id']).first()
-       
-        serializer =UserProfileSerializer(userd)
-        return Response(serializer.data)
+     renderer_classes = [UserRenderer]
+     permission_classes = [IsAuthenticated]
+     def get(self, request, format=None):
+         serializer = UserProfileSerializer(request.user)
+         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class Alarm(APIView):
-   def get(self, request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
-        
-        
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        serializers = UserProfileSerializer(request.user)
         userd = MyModel.objects.last()
        
-        serializer =alarmSerilazer(userd)
-        return Response(serializer.data)
+    serializer =alarmSerilazer(userd)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
    
 class history(APIView):
+       renderer_classes = [UserRenderer]
+       permission_classes = [IsAuthenticated]
        def get(self, request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
         
         
         userd = MyModel.objects.all().values()
