@@ -158,8 +158,8 @@ class Alarm(APIView):
         serializers = UserProfileSerializer(request.user)
         userd = MyModel.objects.last()
        
-    serializer =alarmSerilazer(userd)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer =alarmSerilazer(userd)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
    
 class history(APIView):
@@ -168,10 +168,10 @@ class history(APIView):
        def get(self, request):
         
         
-        userd = MyModel.objects.all().values()
+           userd = MyModel.objects.all().values()
        
-        serializer =alarmSerilazer(userd)
-        return Response(userd)
+           serializer =alarmSerilazer(userd)
+           return Response(userd)
   
 
 
