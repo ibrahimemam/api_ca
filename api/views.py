@@ -57,7 +57,7 @@ class UserLoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-      token = jwt.encode(payload, 'secret', algorithm='HS256')
+      tokens = jwt.encode(payload, 'secret', algorithm='HS256')
 
       response = Response()
 
