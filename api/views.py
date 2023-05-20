@@ -66,7 +66,7 @@ class UserLoginView(APIView):
             'jwt': token,
         
         }
-      return Response({'token':response.cookies, 'msg':'Login Success'}, status=status.HTTP_200_OK)
+      return Response({'token':response, 'msg':'Login Success'}, status=status.HTTP_200_OK)
     else:
       return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
 
