@@ -43,21 +43,36 @@ class UserRegistrationView(APIView):
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class UserLoginView(APIView):
   renderer_classes = [UserRenderer]
-  def post(self, request,  *,format=None):
-     self.http_method_names.append("GET")
-     renderer_classes = [UserRenderer]
   def post(self, request, format=None):
     serializer = UserLoginSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    email = serializer.data.get('email')
-    password = serializer.data.get('password')
-    user = authenticate(email=email, password=password)
-    if user is not None:
-      token = get_tokens_for_user(user)
-      print(token)
-      return Response({'token':token, 'msg':'Login Success'}, status=status.HTTP_200_OK)
-    else:
-      return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
+
+    if serializer.is_valid(raise_exception=True):
+      email = serializer.data.get('email')
+      password = serializer.data.get('password')
+      user = authenticate(email=email, password=password)
+      if user is not None:
+        #token = get_tokens_for_user(user)
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token,
+        
+        }
+        return response
+         
+         #return Response({'token':token, 'msg':'Login Success'}, status=status.HTTP_200_OK)
+      else:
+         return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
+    return Response(serializer.errors(),status=status.HTTP_400_BAD_REQUEST)
 class UserProfileView(APIView):
   renderer_classes = [UserRenderer]
   permission_classes = [IsAuthenticated]
