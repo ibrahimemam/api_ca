@@ -168,10 +168,10 @@ class history(APIView):
        def get(self, request):
         
         
-           userd = MyModel.objects.all().values()
+           userd = MyModel.objects.all().order_by('-id')[:5]
        
            serializer =alarmSerilazer(userd)
-           return Response(userd)
+           return Response(userd.data)
   
 
 
