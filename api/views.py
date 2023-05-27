@@ -170,8 +170,8 @@ class history(APIView):
         
            userd = MyModel.objects.all().order_by('-id')[:5]
        
-           serializer =alarmSerilazer(userd)
-           return Response(userd.data)
+           serializer =alarmSerilazer(userd, many=True)
+           return Response(serializer.data)
   
 
 
