@@ -89,12 +89,22 @@ WSGI_APPLICATION = 'my_api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
       
+    }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'eDJflhyqwcSm7Tgi2SIB',
+        'HOST': 'containers-us-west-145.railway.app',
+        'PORT': '5807',
     }
 }
 REST_FRAMEWORK = {
