@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from api.serializers import alarmSerilazer,SendPasswordResetEmailSerializer, UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
+from api.serializers import alarmSerilazer,SendPasswordResetEmailSerializer, Usernamepasword,UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
 from django.contrib.auth import authenticate
 from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -173,7 +173,13 @@ class history(APIView):
            serializer =alarmSerilazer(userd, many=True)
            return Response(serializer.data)
   
-
+class UserChangename(APIView):
+  renderer_classes = [UserRenderer]
+  permission_classes = [IsAuthenticated]
+  def post(self, request, format=None):
+    serializer = Usernamepasword(data=request.data, context={'user':request.user})
+    serializer.is_valid(raise_exception=True)
+    return Response({'msg':'name Changed Successfully'}, status=status.HTTP_200_OK)
 
 
 
