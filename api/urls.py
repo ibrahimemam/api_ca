@@ -15,7 +15,7 @@ urlpatterns = [
    # path('video/', video_feed, name='video_feed'),
     path('user/', UserView.as_view()),
     path('alarm/', Alarm.as_view()),
-     path('history/', history.as_view()),
+    path('history/', history.as_view()),
     path('UserChangename/', UserChangename.as_view(), name='UserChangename'),
 
     
