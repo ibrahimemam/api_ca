@@ -17,7 +17,7 @@ urlpatterns = [
     path('alarm/', Alarm.as_view()),
      path('history/', history.as_view()),
     path('UserChangename/', UserChangename.as_view(), name='UserChangename'),
-    UserChangename
+
     
     
     
