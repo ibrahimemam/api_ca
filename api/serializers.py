@@ -123,5 +123,26 @@ class Reservationserilaizer(serializers.Serializer):
         model=Reservation 
         fields=['camira','movie']
 
+class Usernamepasword(serializers.Serializer):
+  name = serializers.CharField(max_length=255, style={'input_type':'name'}, write_only=True)
+ 
+  class Meta:
+    fields = ['name']
 
+  def validate(self, attrs):
+    try:
+      name = attrs.get('name')
+      uid = self.context.get('uide')
+      token = self.context.get('token')
+
+      id = smart_str(urlsafe_base64_decode(uid))
+      user = User.objects.get(id=id)
+      if not PasswordResetTokenGenerator().check_token(user, token):
+        raise serializers.ValidationError('Token is not Valid or Expired')
+      user.rest_name (name)
+      user.save()
+      return attrs
+    except DjangoUnicodeDecodeError as identifier:
+      PasswordResetTokenGenerator().check_token(user, token)
+      raise serializers.ValidationError('Token is not Valid or Expired')
     
