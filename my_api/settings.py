@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
   
 # Path where media is stored  
-MEDIA_ROOT = '/home/user/photos/' 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'photos') 
 MEDIA_URL = '/photos/'  
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
