@@ -27,7 +27,24 @@ def get_tokens_for_user(user):
       'refresh': str(refresh),
       'access': str(refresh.access_token),
   }
+def isLogin(request):
+  token = request.META.get('HTTP_AUTHORIZATION')
+  if not token:
+    raise AuthenticationFailed({'success':False,'message':'Authentication credentials were not provided.'})
+  try:
+    payload = jwt.decode(token, 'secret', algorithms=['HS256'])
 
+  except jwt.ExpiredSignatureError:
+    raise AuthenticationFailed({'success':False,'message':'Token Is Expired'})
+
+  except jwt.exceptions.DecodeError:
+    raise AuthenticationFailed({'success':False,'message':'Invalid token'})
+
+  user = User.objects.filter(id=payload['id']).first()
+  if not user:
+    raise AuthenticationFailed({'success':False,'message':'User Account not found!'})
+
+  return user
 
 class UserRegistrationView(APIView):
   renderer_classes = [UserRenderer]
