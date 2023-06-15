@@ -173,7 +173,7 @@ class history(APIView):
            serializer =alarmSerilazer(userd, many=True)
            return Response(serializer.data)
   
-lass MyModelUpdate(generics.UpdateAPIView):
+class MyModelUpdate(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = MyModelSerializer
     permission_classes = [IsAuthenticated]
