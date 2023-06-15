@@ -93,7 +93,7 @@ class UserProfileView(APIView):
     serializer = UserProfileSerializer(request.user)
     return Response(serializer.data, status=status.HTTP_200_OK)  
   def put(self,request,format=None):
-    user=isLogin(request)
+    token = request.COOKIES.get('jwt')
     serializer= UserProfileSerializer(user,data=request.data)
     if serializer.is_valid(raise_exception=True):
         pharmacy = serializer.save()
