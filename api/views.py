@@ -174,12 +174,13 @@ class history(APIView):
            return Response(serializer.data)
   
 class UserChangename(APIView):
+  queryset = UserProfileSerializer.objects.all()
   renderer_classes = [UserRenderer]
   permission_classes = [IsAuthenticated]
-  def post(self, request, format=None):
-    serializer = Usernamepasword(data=request.data, context={'user':request.user})
-    serializer.is_valid(raise_exception=True)
-    return Response({'msg':'name Changed Successfully'}, status=status.HTTP_200_OK)
+  lookup_field = 'user__username'
+
+  def get_object(self):
+      return self.queryset.get(user__username=self.kwargs['username'])
 
 
 
