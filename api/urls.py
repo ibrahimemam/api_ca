@@ -1,6 +1,6 @@
 
 from django.urls import path,include
-from api.views import Alarm,history,UserChangename,UserRegistrationView,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
+from api.views import Alarm,history,MyModelUpdate,UserRegistrationView,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
 from django.conf import settings  
 from django.conf.urls.static import static  
 urlpatterns = [
@@ -16,7 +16,7 @@ urlpatterns = [
     path('user/', UserView.as_view()),
     path('alarm/', Alarm.as_view()),
     path('history/', history.as_view()),
-    path('UserChangename/', UserChangename.as_view(), name='UserChangename'),
+    path('mymodel/<int:id>/', MyModelUpdate.as_view()),
 
     
     
