@@ -173,15 +173,11 @@ class history(APIView):
            serializer =alarmSerilazer(userd, many=True)
            return Response(serializer.data)
   
-class UserChangename(APIView):
-  queryset = UserProfileSerializer(request.user)
-  renderer_classes = [UserRenderer]
-  permission_classes = [IsAuthenticated]
-  lookup_field = 'user__username'
-
-  def get_object(self,request):
-       queryset = UserProfileSerializer(request.user)
-      return self.queryset.get(user__username=self.kwargs['username'])
+lass MyModelUpdate(generics.UpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = MyModelSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'id' 
 
 
 
