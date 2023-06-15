@@ -75,7 +75,14 @@ class UserProfileView(APIView):
     token = request.COOKIES.get('jwt')
     serializer = UserProfileSerializer(request.user)
     return Response(serializer.data, status=status.HTTP_200_OK)  
-
+  def put(self,request,format=None):
+    user=isLogin(request)
+    serializer= UserProfileSerializer(user,data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        pharmacy = serializer.save()
+        return Response({'message':'profile updated Successfully',"success":True}, status=status.HTTP_201_CREATED)
+    # print(serializer.errors)
+    return Response({'success':False,'message':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 def index(request):
     return render(request,'index.html')  
 
@@ -173,12 +180,3 @@ class history(APIView):
            serializer =alarmSerilazer(userd, many=True)
            return Response(serializer.data)
   
-class MyModelUpdate(generics.UpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = MyModelSerializer
-    permission_classes = [IsAuthenticated]
-    lookup_field = 'id' 
-
-
-
-    
