@@ -12,6 +12,11 @@ from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
 from rest_framework.decorators import api_view
 from .models import User,MyModel
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import os
+import requests
+import uuid
 
 
 from rest_framework.exceptions import AuthenticationFailed
@@ -180,7 +185,29 @@ from rest_framework import generics
 
 class ImageUploadView(generics.CreateAPIView):
     serializer_class = MyModelSerializer
-      
+@csrf_exempt
+def upload(request):
+    if request.method == 'POST':
+        # get the image file from the request
+        image_file = request.FILES.get('image', None)
+        if not image_file:
+            return JsonResponse({'error': 'Image file not found'}, status=400)
+
+        # generate a unique file name for the image
+        file_name = str(uuid.uuid4()) + os.path.splitext(image_file.name)[1]
+
+        # save the image to disk on the server
+        with open(os.path.join('path', 'to', 'upload', 'directory', file_name), 'wb') as f:
+            for chunk in image_file.chunks():
+                f.write(chunk)
+
+        # save the data to the database along with the URL of the uploaded image
+        my_model = MyModel(cameria_id_id=request.POST.get('id_cam'),alarm=request.POST.get('alarm'), image_url= 'https://apica-camapi.up.railway.app/api/user' + file_name)
+        my_model.save()
+
+        return JsonResponse({'id': my_model.id}, status=201)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)      
       
 
 
