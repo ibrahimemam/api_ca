@@ -110,7 +110,7 @@ class alarmSerilazer(serializers.ModelSerializer):
   
   class Meta:
     model = MyModel
-    fields = [ 'id','cameria_id_id', 'alarm', 'image_url']
+    fields = [ 'id','cameria_id_id', 'alarm', 'alrm_date','image_url']
 class camerSerilazer(serializers.ModelSerializer):
   
   class Meta:
@@ -127,7 +127,7 @@ class MyModelSerializer(serializers.ModelSerializer):
  
     class Meta:
         model = MyModel
-        fields = ('id', 'cameria_id_id', 'alarm', 'image_url')
+        fields = ('id', 'cameria_id_id', 'alarm', 'alrm_date','image_url')
     def create(self, validated_data):
         image = validated_data.pop('image')
         instance = self.Meta.model(**validated_data)
