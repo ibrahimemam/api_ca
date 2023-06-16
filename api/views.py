@@ -10,6 +10,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
 from .models import User,MyModel
+import torch
+
 from rest_framework.exceptions import AuthenticationFailed
 #yolo v5 related import
 """import yolov5,torch
@@ -232,3 +234,46 @@ class MyModelDetail(generics.RetrieveUpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save()
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
+
+@api_view(['POST'])
+def detect_objects(request):
+    # Define a generator function to process each frame of the video
+    def process_frames(video):
+        while True:
+            # Read the next frame from the video
+            ret, frame = video.read()
+            if not ret:
+                break
+            
+            # Convert the frame to a PyTorch tensor
+            frame_tensor = torch.from_numpy(frame.transpose(2, 0, 1)).float() / 255.0
+            
+            # Pass the frame through the YOLO model
+            results = model(frame_tensor.unsqueeze(0))[0]
+            
+            # Parse the output of the YOLO model
+            for obj in results:
+                # Extract the object label and bounding box coordinates
+                label = obj['label']
+                bbox = obj['box']
+                x1, y1, x2, y2 = bbox.tolist()
+                
+                # Draw the bounding box on the original frame
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+            
+            # Encode the processed frame as a JPEG image and yield it
+            _, jpeg = cv2.imencode('.jpg', frame)
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
+    
+    # Read the input video file
+    file = request.FILES['file']
+    video = cv2.VideoCapture(file)
+    
+    # Return a streaming HTTP response with the processed frames
+    return StreamingHttpResponse(process_frames(video), content_type='multipart/x-mixed-replace; boundary=frame')
+
+def index(request):
+    return render(request, 'index.html')
