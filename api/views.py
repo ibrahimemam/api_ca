@@ -9,7 +9,7 @@ from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
-from ultralytics import YOLO
+
 from .models import User,MyModel
 
 
