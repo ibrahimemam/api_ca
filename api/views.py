@@ -9,6 +9,7 @@ from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
+from ultralytics import YOLO
 from .models import User,MyModel
 import torch
 
@@ -120,16 +121,15 @@ class UserPasswordResetView(APIView):
     return Response({'msg':'Password Reset Successfully'}, status=status.HTTP_200_OK)
 #loade modeal
 #model = yolov5.load('yolov5s.pt')
-""""model = yolov5.load('yolov5s.pt')
-# model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
-device = select_device("") # 0 for gpu, '' for cpu
+#model = yolov5.load('yolov5s.pt')
+model =  YOLO("weights/best.pt")
+
 
 # Get names and colors
-names = model.module.names if hasattr(model, 'module') else model.names
+names = false
 hide_labels=False
 hide_conf = False
-"""
-"""
+
 def stream():
     cap = cv2.VideoCapture(0)
     model.conf = 0.25
@@ -157,8 +157,7 @@ def stream():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')  
 
-"""
-"""
+
 def video_feed(request):
     return StreamingHttpResponse(stream(), content_type='multipart/x-mixed-replace; boundary=frame')
 """  
