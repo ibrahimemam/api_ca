@@ -160,6 +160,22 @@ def stream():
 def video_feed(request):
     return StreamingHttpResponse(stream(), content_type='multipart/x-mixed-replace; boundary=frame')
 """  
+import cv2
+from django.shortcuts import render
+
+def live_feed(request):
+    # Open the camera
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        # Capture frame-by-frame
+        ret, frame = cap.read()
+
+        # Convert the frame to JPEG format
+        ret, jpeg = cv2.imencode('.jpg', frame)
+
+        # Render the frame to a Django template
+        return render(request, 'index.html', {'image': jpeg.tobytes()})
 class camiraView(APIView):
   renderer_classes = [UserRenderer]
   permission_classes = [IsAuthenticated]
