@@ -10,7 +10,7 @@ from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
-
+from rest_framework.decorators import api_view
 from .models import User,MyModel
 
 
@@ -161,14 +161,14 @@ class MyModelDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
-
+@api_view(['POST'])
 class MyAPIView(APIView):
-   
+     if request.method == 'POST':
+         serializer = UploadedPhotoSerializer(data=request.data)
 
-    def post(self, request, format=None):
-        serializer = MyModelSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+         if serializer.is_valid():
+             MyModel.save()
+             return Response(serializer.data, status=201)
+
+         return Response(serializer.errors, status=400)
 
