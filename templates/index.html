@@ -9,7 +9,14 @@
      <img src="{{ image }}" />
 </head>
 <body>
-    <h1 >Hello</h1>
+     <video id="video" autoplay></video>
+    <script>
+        var video = document.getElementById('video');
+        var source = new EventSource('/detect_objects/');
+        source.onmessage = function(event) {
+            video.src = URL.createObjectURL(event.data);
+        }
+    </script>
    
 </body>
 </html>
