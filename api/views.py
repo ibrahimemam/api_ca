@@ -151,7 +151,7 @@ class history(APIView):
            return Response(serializer.data)
   
 class MyModelDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = MyModel.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserProfileSerializer
 
     def put(self, request, *args, **kwargs):
