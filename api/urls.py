@@ -1,12 +1,13 @@
 
 from django.urls import path,include
-from api.views import Alarm,history,UserRegistrationView,MyModelDetail,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
+from api.views import Alarm,history,MyAPIView,UserRegistrationView,MyModelDetail,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
 from django.conf import settings  
 from django.conf.urls.static import static  
 urlpatterns = [
     path('register/', UserRegistrationView.as_view(),name='register'),
     path('login/', UserLoginView.as_view(),name='login'),
     path('profile/', UserProfileView.as_view(), name='profile'),
+    path('uploade_photo/', MyAPIView.as_view(), name='uploade alarm'),
     path('changepassword/', UserChangePasswordView.as_view(), name='changepassword'),
     path('send-reset-password-email/', SendPasswordResetEmailView.as_view(), name='send-reset-password-email'),
     path('reset-password/<uid>/<token>/', UserPasswordResetView.as_view(), name='reset-password'),
