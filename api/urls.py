@@ -12,7 +12,7 @@ urlpatterns = [
     path('reset-password/<uid>/<token>/', UserPasswordResetView.as_view(), name='reset-password'),
     path('cameria/', camiraView.as_view(), name='profile'),
     path('index/', index, name='index'),
-   # path('video/', video_feed, name='video_feed'),
+    path('video/', video_feed, name='video_feed'),
     path('user/', UserView.as_view()),
     path('alarm/', Alarm.as_view()),
     path('history/', history.as_view()),
