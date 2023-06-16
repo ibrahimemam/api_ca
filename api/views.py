@@ -122,6 +122,7 @@ class UserPasswordResetView(APIView):
 #loade modeal
 #model = yolov5.load('yolov5s.pt')
 #model = yolov5.load('yolov5s.pt')
+""""
 model =  YOLO("weights/best.pt")
 
 
@@ -160,7 +161,7 @@ def stream():
 
 def video_feed(request):
     return StreamingHttpResponse(stream(), content_type='multipart/x-mixed-replace; boundary=frame')
-
+""""
 import cv2
 from django.shortcuts import render
 
