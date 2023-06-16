@@ -202,7 +202,7 @@ def upload(request):
                 f.write(chunk)
 
         # save the data to the database along with the URL of the uploaded image
-        my_model = MyModel(cameria_id_id=request.POST.get('id_cam'),alarm=request.POST.get('alarm'), image_url= 'https://apica-camapi.up.railway.app/api/user' + file_name)
+        my_model = MyModel(cameria_id_id=request.POST.get('id_cam'),alarm=request.POST.get('alarm'), image_url= 'https://apica-camapi.up.railway.app/api/user/photos' + file_name)
         my_model.save()
 
         return JsonResponse({'id': my_model.id}, status=201)
