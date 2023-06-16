@@ -163,7 +163,7 @@ class MyModelDetail(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 class MyAPIView(APIView):
-    parser_classes = (MultiPartParser, FormParser)
+   
 
     def post(self, request, format=None):
         serializer = MyModelSerializer(data=request.data)
