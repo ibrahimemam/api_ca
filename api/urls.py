@@ -1,6 +1,6 @@
 
 from django.urls import path,include
-from api.views import Alarm,history,MyModelDetail,video_feed,UserRegistrationView,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
+from api.views import Alarm,history,video_feed,UserRegistrationView,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
 from django.conf import settings  
 from django.conf.urls.static import static  
 urlpatterns = [
