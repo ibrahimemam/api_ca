@@ -1,6 +1,7 @@
 from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status,generics
 from rest_framework.views import APIView
 from api.serializers import MyModelSerializer,alarmSerilazer,SendPasswordResetEmailSerializer,UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
