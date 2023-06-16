@@ -162,15 +162,16 @@ class MyModelDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.save()
         return Response(serializer.data)
 @api_view(['POST'])
-class MyAPIView(APIView):
-     if request.method == 'POST':
-           
-           serializer = UploadedPhotoSerializer(data=request.data)
+def MyAPIView(request):
+  
 
-           if serializer.is_valid():
-                 
-                 MyModel.save()
-                 return Response(serializer.data, status=201)
+    if request.method == 'POST':
+        serializer = UploadedPhotoSerializer(data=request.data)
 
-           return Response(serializer.errors, status=400)  
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
+
 
