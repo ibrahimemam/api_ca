@@ -11,17 +11,11 @@ from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
 from ultralytics import YOLO
 from .models import User,MyModel
-import torch
+
 
 from rest_framework.exceptions import AuthenticationFailed
-#yolo v5 related import
-"""import yolov5,torch
-from yolov5.utils.general import (check_img_size, non_max_suppression, 
-                                  check_imshow, xyxy2xywh, increment_path)
-from yolov5.utils.torch_utils import select_device, time_sync
-from yolov5.utils.plots import Annotator, colors
-from deep_sort.utils.parser import get_config
-from deep_sort.deep_sort import DeepSort"""
+
+
 
 
 def get_tokens_for_user(user):
@@ -71,10 +65,7 @@ class UserLoginView(APIView):
     user = authenticate(email=email, password=password)
     if user is not None:
       token = get_tokens_for_user(user)
-      
 
-      
-    
       return Response({'token':token, 'msg':'Login Success'}, status=status.HTTP_200_OK)
     else:
       return Response({'errors':{'non_field_errors':['Email or Password is not Valid']}}, status=status.HTTP_404_NOT_FOUND)
@@ -119,51 +110,7 @@ class UserPasswordResetView(APIView):
     serializer = UserPasswordResetSerializer(data=request.data, context={'uid':uid, 'token':token})
     serializer.is_valid(raise_exception=True)
     return Response({'msg':'Password Reset Successfully'}, status=status.HTTP_200_OK)
-#loade modeal
-#model = yolov5.load('yolov5s.pt')
-#model = yolov5.load('yolov5s.pt')
-""""
-model =  YOLO("weights/best.pt")
 
-
-# Get names and colors
-names = false
-hide_labels=False
-hide_conf = False
-
-def stream():
-    cap = cv2.VideoCapture(0)
-    model.conf = 0.25
-    model.iou = 0.5
-   # model.classes = [0,64,39]
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            print("Error: failed to capture image")
-            break
-
-        results = model(frame, augment=True)
-        # proccess
-        annotator = Annotator(frame, line_width=2, pil=not ascii) 
-        det = results.pred[0]
-        if det is not None and len(det):  
-            for *xyxy, conf, cls in reversed(det):
-                c = int(cls)  # integer class
-                label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
-                annotator.box_label(xyxy, label, color=colors(c, True)) 
-
-        im0 = annotator.result() 
-       
-        image_bytes = cv2.imencode('.jpg', im0)[1].tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + image_bytes + b'\r\n')  
-
-
-def video_feed(request):
-    return StreamingHttpResponse(stream(), content_type='multipart/x-mixed-replace; boundary=frame')
-""""
-import cv2
-from django.shortcuts import render
 
 
 class camiraView(APIView):
