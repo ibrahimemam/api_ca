@@ -1,6 +1,6 @@
 
 from django.urls import path,include
-from api.views import Alarm,history,MyModelDetail,UserRegistrationView,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
+from api.views import Alarm,history,MyModelDetail,live_feed,UserRegistrationView,UserView,UserLoginView,UserProfileView,camiraView,UserChangePasswordView,SendPasswordResetEmailView,UserPasswordResetView,index
 from django.conf import settings  
 from django.conf.urls.static import static  
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
     path('reset-password/<uid>/<token>/', UserPasswordResetView.as_view(), name='reset-password'),
     path('cameria/', camiraView.as_view(), name='profile'),
     path('index/', index, name='index'),
-    path('video/', video_feed, name='video_feed'),
+    path('video/', live_feed, name='video_feed'),
     path('user/', UserView.as_view()),
     path('alarm/', Alarm.as_view()),
     path('history/', history.as_view()),
