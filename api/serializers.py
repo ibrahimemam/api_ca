@@ -129,9 +129,9 @@ class MyModelSerializer(serializers.ModelSerializer):
         model = MyModel
         fields = ('id', 'cameria_id_id', 'alarm', 'image_url')
     def create(self, validated_data):
-        image_url = validated_data.pop('image_url')
+        image = validated_data.pop('image')
         instance = self.Meta.model(**validated_data)
-        instance.image_url = image_url
+        instance.image_url = image
         instance.save()
         return instance   
     
