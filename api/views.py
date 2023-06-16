@@ -166,12 +166,21 @@ def MyAPIView(request):
   
 
     if request.method == 'POST':
-        serializer = UploadedPhotoSerializer(data=request.data)
+        serializer = MyModelSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
+
+
+from rest_framework import generics
+
+
+class ImageUploadView(generics.CreateAPIView):
+    serializer_class = MyModelSerializer
+      
+      
 
 
