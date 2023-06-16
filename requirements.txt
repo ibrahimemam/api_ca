@@ -4,6 +4,8 @@ Django==3.2.18
 django-cors-headers==3.14.0
 django-countries==7.5
 django-filter==22.1
+opencv-python-headless==4.5.3.56
+opencv-contrib-python-headless==4.5.3.56
 django-rapidapi==0.1.0.dev1
 django-rest-knox==4.2.0
 djangorestframework==3.13.0
