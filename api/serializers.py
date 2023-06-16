@@ -123,5 +123,10 @@ class Reservationserilaizer(serializers.Serializer):
         model=Reservation 
         fields=['camira','movie']
 
+class MyModelSerializer(serializers.ModelSerializer):
+    photo = serializers.ImageField(max_length=None, use_url=True)
 
+    class Meta:
+        model = MyModel
+        fields = ('id', 'cameria_id_id', 'alarm', 'photo')
     
