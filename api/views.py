@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status,generics
 from rest_framework.views import APIView
-from api.serializers import alarmSerilazer,SendPasswordResetEmailSerializer,UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
+from api.serializers import MyModelSerializer,alarmSerilazer,SendPasswordResetEmailSerializer,UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
 from django.contrib.auth import authenticate
 from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -161,5 +161,13 @@ class MyModelDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.save()
         return Response(serializer.data)
 
+class MyAPIView(APIView):
+    parser_classes = (MultiPartParser, FormParser)
 
+    def post(self, request, format=None):
+        serializer = MyModelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
