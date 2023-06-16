@@ -17,7 +17,7 @@ urlpatterns = [
     path('alarm/', Alarm.as_view()),
     path('history/', history.as_view()),
     path('editProfile/', UserProfileView.as_view(), name='profile'),
-    path('mymodel/<int:id>/', MyModelDetail.as_view()),
+   
 
     
     
