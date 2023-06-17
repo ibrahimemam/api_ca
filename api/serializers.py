@@ -134,11 +134,13 @@ class MyModelSerializer(serializers.ModelSerializer):
         instance.image_url = image
         instance.save()
         return instance   
- class alarmsaSerilazer(serializers.ModelSerializer):
-      
+class alarmsaSerilazer(serializers.ModelSerializer):
   class Meta:
+    
     model = alarm
     fields = [ 'alarmat', 'image_ur','alrm_in']
+      
+
     
          
     
