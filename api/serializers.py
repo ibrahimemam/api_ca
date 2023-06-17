@@ -109,7 +109,7 @@ class UserPasswordResetSerializer(serializers.Serializer):
 class alarmSerilazer(serializers.ModelSerializer):
   
   class Meta:
-    model = MyModel
+    model = alarm
     fields = '__all__'
 class camerSerilazer(serializers.ModelSerializer):
   
