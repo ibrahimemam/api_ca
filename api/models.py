@@ -91,6 +91,8 @@ class MyModel(models.Model):
     
     image_url = models.ImageField(upload_to='my_picter', blank=True, null=True)
     alrm_at = models.DateTimeField(auto_now_add=True)
+      def __str__(self):
+        return self.alarm
 class Reservation(models.Model):
     camira = models.ForeignKey(camira, related_name='reservation', on_delete=models.CASCADE )
     movie = models.ForeignKey(User, related_name='reservation', on_delete=models.CASCADE )
@@ -103,5 +105,5 @@ class alarm(models.Model):
     image_ur = models.ImageField(upload_to='my_picter', blank=True, null=True)
     alrm_in = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.alar
+        return self.alarmat
       
