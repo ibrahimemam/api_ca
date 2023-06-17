@@ -97,7 +97,7 @@ class Reservation(models.Model):
     movie = models.ForeignKey(User, related_name='reservation', on_delete=models.CASCADE )
 class alarm(models.Model):
     cameria = models.ForeignKey(
-        camira, on_delete=models.CASCADE, related_name="listigs")
+        camira, on_delete=models.CASCADE, related_name="listigs",default=1)
     alarmat = models.CharField(
         max_length=80, blank=False, null=False)
     
