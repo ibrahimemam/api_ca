@@ -110,7 +110,7 @@ class alarmSerilazer(serializers.ModelSerializer):
   
   class Meta:
     model = MyModel
-    fields = ('id', 'cameria_id_id', 'alarm', 'image_url')
+    fields = '__all__'
 class camerSerilazer(serializers.ModelSerializer):
   
   class Meta:
