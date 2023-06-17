@@ -11,7 +11,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 import jwt, datetime
 from rest_framework.decorators import api_view
-from .models import User,MyModel
+from .models import User,MyModel,alarm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
@@ -139,7 +139,7 @@ class Alarm(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, format=None):
         serializers = UserProfileSerializer(request.user)
-        userd = MyModel.objects.last()
+        userd = alarm.objects.last()
        
         serializer =alarmSerilazer(userd)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -151,7 +151,7 @@ class history(APIView):
        def get(self, request):
         
         
-           userd = MyModel.objects.all().order_by('-id')[:5]
+           userd = alarm.objects.all().order_by('-id')[:5]
        
            serializer =alarmSerilazer(userd, many=True)
            return Response(serializer.data)
