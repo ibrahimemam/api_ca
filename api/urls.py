@@ -20,6 +20,6 @@ urlpatterns = [
     path('editProfile/', UserProfileView.as_view(), name='profile'),
     path('upload-image/', ImageUploadView.as_view(), name='upload-image'),
     path('mymodels/<int:pk>/', MyModelDetail.as_view(), name='mymodel_detail'),
-    path('uploadealarm/', upload, name='upload'),
+    path('uploadealarm/', uploadealarm.as_view(), name='upload'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
