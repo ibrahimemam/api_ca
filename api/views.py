@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework import status,generics
 from rest_framework.views import APIView
-from api.serializers import MyModelSerializer,alarmSerilazer,SendPasswordResetEmailSerializer,UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
+from api.serializers import alarmsaSerilazer,MyModelSerializer,alarmSerilazer,SendPasswordResetEmailSerializer,UserChangePasswordSerializer, UserLoginSerializer, UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,camerSerilazer
 from django.contrib.auth import authenticate
 from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -209,5 +209,14 @@ def upload(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)      
       
-
+class uploadealarm(APIView):
+    
+     
+  def post(self, request, format=None):
+    serializer = alarmsaSerilazer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+      user=serializer.save()
+     
+      return Response("succsesse", status=status.HTTP_201_CREATED)
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
