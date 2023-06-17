@@ -94,5 +94,14 @@ class MyModel(models.Model):
 class Reservation(models.Model):
     camira = models.ForeignKey(camira, related_name='reservation', on_delete=models.CASCADE )
     movie = models.ForeignKey(User, related_name='reservation', on_delete=models.CASCADE )
-
+class alarm(models.Model):
+    cameria = models.ForeignKey(
+        camira, on_delete=models.CASCADE, related_name="listigs")
+    alarmat = models.CharField(
+        max_length=80, blank=False, null=False)
+    
+    image_ur = models.ImageField(upload_to='my_picter', blank=True, null=True)
+    alrm_in = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.alar
       
