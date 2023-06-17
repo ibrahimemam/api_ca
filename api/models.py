@@ -90,6 +90,7 @@ class MyModel(models.Model):
         max_length=80, blank=False, null=False)
     
     image_url = models.ImageField(upload_to='my_picter', blank=True, null=True)
+    alrm_at = models.DateTimeField(auto_now_add=True)
 class Reservation(models.Model):
     camira = models.ForeignKey(camira, related_name='reservation', on_delete=models.CASCADE )
     movie = models.ForeignKey(User, related_name='reservation', on_delete=models.CASCADE )
