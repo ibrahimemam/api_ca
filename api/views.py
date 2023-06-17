@@ -210,13 +210,13 @@ def upload(request):
         return JsonResponse({'error': 'Invalid request method'}, status=405)      
       
 class uploadealarm(APIView):
-    
-     
+  
   def post(self, request, format=None):
+    
     serializer = alarmsaSerilazer(data=request.data)
     if serializer.is_valid(raise_exception=True):
+      
       user=serializer.save()
-     
       return Response("succsesse", status=status.HTTP_201_CREATED)
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
