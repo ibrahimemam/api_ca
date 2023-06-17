@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib import messages
-from api.models import User,MyModel,camira,Reservation
+from api.models import User,MyModel,camira,Reservation,alarm
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin 
 # Register your models here.
 class UserModelAdmin(BaseUserAdmin):
@@ -44,3 +44,4 @@ admin.site.register(User, UserModelAdmin)
 admin.site.register(MyModel)
 admin.site.register(camira)
 admin.site.register(Reservation)
+admin.site.register(alarm)
