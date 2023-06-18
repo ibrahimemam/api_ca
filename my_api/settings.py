@@ -181,3 +181,4 @@ CORS_ALLOWED_ORIGINS = [
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=24),
 }
+TIME_ZONE = 'Africa/Cairo'
