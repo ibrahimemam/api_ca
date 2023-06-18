@@ -85,7 +85,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_api.wsgi.application'
-
+TIME_ZONE = 'UTC'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
