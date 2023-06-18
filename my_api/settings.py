@@ -113,7 +113,7 @@ REST_FRAMEWORK = {
     '  rest_framework.permissions.IsAuthenticated',    
     ),
     
-   
+   'DEFAULT_TOKEN_EXPIRY_TIME': 360000,
 }
 
 # Password validation
