@@ -158,7 +158,7 @@ class history(APIView):
   
 class MyModelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = MyModelSerializer
+    serializer_class = UserProfileSerializer
 
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
